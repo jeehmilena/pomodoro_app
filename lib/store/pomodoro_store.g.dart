@@ -89,6 +89,21 @@ mixin _$PomodoroStore on _PomodoroStore, Store {
     });
   }
 
+  late final _$typeAtom = Atom(name: '_PomodoroStore.type', context: context);
+
+  @override
+  Type get type {
+    _$typeAtom.reportRead();
+    return super.type;
+  }
+
+  @override
+  set type(Type value) {
+    _$typeAtom.reportWrite(value, super.type, () {
+      super.type = value;
+    });
+  }
+
   late final _$_PomodoroStoreActionController =
       ActionController(name: '_PomodoroStore', context: context);
 
@@ -176,7 +191,8 @@ initial: ${initial},
 minutes: ${minutes},
 seconds: ${seconds},
 workTime: ${workTime},
-restTime: ${restTime}
+restTime: ${restTime},
+type: ${type}
     ''';
   }
 }

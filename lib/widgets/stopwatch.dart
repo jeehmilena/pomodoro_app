@@ -12,29 +12,29 @@ class StopWatch extends StatelessWidget {
   Widget build(BuildContext context) {
     final store = Provider.of<PomodoroStore>(context);
 
-    return Container(
-      color: Colors.pink,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Hora de trabalhar',
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
-                ?.copyWith(color: Colors.white, fontSize: 28),
-          ),
-          const SizedBox(height: 24),
-          Text(
-            '${store.minutes.toString().padLeft(2, '0')}:${store.seconds.toString().padLeft(2, '0')}',
-            style: Theme.of(context)
-                .textTheme
-                .titleMedium
-                ?.copyWith(color: Colors.white, fontSize: 92),
-          ),
-          const SizedBox(height: 20),
-          Observer(
-            builder: (_) => Row(
+    return Observer(builder: (_) {
+      return Container(
+        color: store.isWorking() ? Colors.pink : Colors.lightBlueAccent,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              store.isWorking() ? 'Tempo de trabalhar' : 'Tempo de descanso',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(color: Colors.white, fontSize: 28),
+            ),
+            const SizedBox(height: 24),
+            Text(
+              '${store.minutes.toString().padLeft(2, '0')}:${store.seconds.toString().padLeft(2, '0')}',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium
+                  ?.copyWith(color: Colors.white, fontSize: 92),
+            ),
+            const SizedBox(height: 20),
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 if (!store.initial)
@@ -56,9 +56,9 @@ class StopWatch extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    });
   }
 }
